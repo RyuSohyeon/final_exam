@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>final test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- css 파일 지정-->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>final test</h2>
+        </div>
+        <div class="main">
+            <div>
+                <button onclick="distance()">Measure Distance</button>                      <!-- Javascript 함수 지정 -->
+            </div>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+    <script>
+        function distance(){
+            fetch("/distance")                                                    /* 해당 경로 파일을 실행 */
+            .then(response=> { console.log(response); return response.text()})
+            .then(data=> {
+                console.log(data);
+                let result = document.querySelector("#result");                 /* result 영역을 알아내고 */
+                if(data=="ok"){                                                 /* "ok" 가 돌아오면 이에 따라 적합한 결과 출력해 줌 */
+                    result.innerHTML = "<h1>cm</h1>";
+                }else{
+                    result.innerHTML = "<h1>error</h1>";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
